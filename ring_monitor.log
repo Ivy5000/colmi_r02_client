@@ -1003,3 +1003,11 @@
 2025-07-09 23:28:30,964 - __main__ - INFO - --- Starting monitoring cycle #3 ---
 2025-07-09 23:28:30,965 - __main__ - INFO - Measuring real-time heart rate...
 2025-07-09 23:28:31,447 - client - INFO - Received packet bytearray(b'i\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00j')
+2025-07-09 23:28:50,844 - __main__ - INFO - Home Assistant integration enabled
+2025-07-09 23:28:50,845 - __main__ - INFO - Starting ring monitor for device: 1A:8E:08:AC:1E:97
+2025-07-09 23:28:50,854 - __main__ - INFO - Home Assistant connection test successful
+2025-07-09 23:28:50,855 - __main__ - INFO - Home Assistant connection successful
+2025-07-09 23:28:50,898 - client - INFO - Connecting to 1A:8E:08:AC:1E:97
+2025-07-09 23:28:53,545 - __main__ - ERROR - Error in monitoring loop: [WinError -2147467260] Operation aborted
+2025-07-09 23:28:53,545 - __main__ - INFO - Ring monitor stopped
+2025-07-09 23:28:53,546 - __main__ - ERROR - Fatal error: [WinError -2147467260] Operation aborted
