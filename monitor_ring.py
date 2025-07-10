@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-Ring monitoring script that continuously collects data from a Colmi R02 ring.
-"""
-
 import asyncio
 import logging
 from datetime import datetime, timezone
@@ -13,13 +9,10 @@ import sys
 import aiohttp
 import json
 from dataclasses import dataclass
-
 import sys
 from pathlib import Path
 
-# Add the colmi_r02_client directory to Python path
 sys.path.insert(0, str(Path("C:/Users/willi/Desktop/ring/colmi_r02_client/colmi_r02_client/colmi_r02_client")))
-
 from client import Client
 import real_time as real_time
 import firehose
@@ -37,10 +30,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Home Assistant Configuration
-# Update these values with your Home Assistant details
+
 HOME_ASSISTANT_CONFIG = {
-    "base_url": "http://192.168.2.125:8123",  # Your Home Assistant URL
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI1ZDBkOTBlN2QxNDg0MDhhOTcxMTNiODUzYjIxYzk0MSIsImlhdCI6MTc1MjExNjk5MiwiZXhwIjoyMDY3NDc2OTkyfQ.FrPJNwWVG_ivL2gh0r2VaqnO8E6UV4ZP46GVvq6iCSg",  # Generate from HA Settings -> Profile -> Long-lived access tokens
+    "base_url": "http://192.168.2.125:8123",  
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI1ZDBkOTBlN2QxNDg0MDhhOTcxMTNiODUzYjIxYzk0MSIsImlhdCI6MTc1MjExNjk5MiwiZXhwIjoyMDY3NDc2OTkyfQ.FrPJNwWVG_ivL2gh0r2VaqnO8E6UV4ZP46GVvq6iCSg", 
     "device_name": "colmi_r02_ring",
     "timeout": 10
 }
@@ -247,9 +240,6 @@ class RingMonitor:
                 # Get initial battery status
                 await self._log_battery_status()
                 
-                # Get heart rate log settings
-                await self._log_hr_settings()
-                
                 logger.info(f"Starting monitoring loop (interval: {self.monitor_interval}s)")
                 
                 # Use Home Assistant client in context if available
@@ -278,15 +268,14 @@ class RingMonitor:
         logger.info(f"--- Starting monitoring cycle #{self.cycle_count} ---")
         
         try:
-            # Get real-time heart rate
-            await self._measure_realtime_heart_rate()
-            
-            # Get firehose data
-            await self._get_firehose_data()
-            
             # Get battery status periodically
             await self._log_battery_status()
-            
+
+            # Get firehose data
+            await self._get_firehose_data()
+
+            # Get real-time heart rate
+            await self._measure_realtime_heart_rate()
             
         except Exception as e:
             logger.error(f"Error in monitoring cycle: {e}")
@@ -308,7 +297,8 @@ class RingMonitor:
                 logger.error(f"Failed to get battery status - ring may be disconnected: {battery_error}")
                 logger.info("Exiting due to ring disconnection")
                 self.stop()
-                sys.exit(1)
+                await asyncio.sleep(10)
+                self.start_monitoring()
             logger.info(f"Battery: {battery_info.battery_level}% (charging: {battery_info.charging})")
             
             # Log to Home Assistant if enabled (log every 10 cycles to avoid spam)
@@ -321,13 +311,7 @@ class RingMonitor:
         except Exception as e:
             logger.error(f"Failed to get battery status: {e}")
     
-    async def _log_hr_settings(self):
-        """Log heart rate settings."""
-        try:
-            hr_settings = await self.client.get_heart_rate_log_settings()
-            logger.info(f"HR logging settings: enabled={hr_settings.enabled}, interval={hr_settings.interval}min")
-        except Exception as e:
-            logger.error(f"Failed to get HR settings: {e}")
+
     
     async def _measure_realtime_heart_rate(self):
         """Measure real-time heart rate."""
@@ -361,7 +345,7 @@ class RingMonitor:
             collected_data = []
             tries = 0
             
-            while tries < 10:  # Collect for about 20 seconds (10 tries * 2 second timeout)
+            while tries < 25:  # Collect for about 20 seconds (10 tries * 2 second timeout)
                 tries += 1
                 try:
                     # Get parsed data from the firehose queue
@@ -412,36 +396,9 @@ class RingMonitor:
             except:
                 pass
     
-    async def _get_heart_rate_log(self):
-        """Get today's heart rate log."""
-        try:
-            logger.info("Getting heart rate log for today...")
-            today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
-            hr_log = await self.client.get_heart_rate_log(today)
-            
-            if hasattr(hr_log, 'readings') and hr_log.readings:
-                logger.info(f"HR log: {len(hr_log.readings)} readings for today")
-            else:
-                logger.info("No heart rate log data for today")
-                
-        except Exception as e:
-            logger.error(f"Failed to get heart rate log: {e}")
     
-    async def _get_steps_data(self):
-        """Get today's steps data."""
-        try:
-            logger.info("Getting steps data for today...")
-            today = datetime.now(timezone.utc)
-            steps_data = await self.client.get_steps(today)
-            
-            if hasattr(steps_data, '__len__') and len(steps_data) > 0:
-                total_steps = sum(detail.steps for detail in steps_data if hasattr(detail, 'steps'))
-                logger.info(f"Steps: {len(steps_data)} activities, total steps: {total_steps}")
-            else:
-                logger.info("No steps data for today")
-                
-        except Exception as e:
-            logger.error(f"Failed to get steps data: {e}")
+    
+    
     
     def stop(self):
         """Stop the monitoring loop."""
@@ -451,7 +408,7 @@ class RingMonitor:
 
 async def main():
     # Replace with your ring's MAC address
-    MAC_ADDRESS = "1A:8E:08:AC:1E:97"  # TODO: Replace with actual MAC address
+    MAC_ADDRESS = "1A:8E:08:AC:1E:97"  
     
     # Optional: record raw packets to file
     record_file = Path("ring_data_capture.bin")
@@ -459,7 +416,7 @@ async def main():
     # Create monitor instance
     monitor = RingMonitor(
         mac_address=MAC_ADDRESS,
-        monitor_interval=10,  # 30 seconds between cycles
+        monitor_interval=5,  # 30 seconds between cycles
         record_to=record_file
     )
     
@@ -481,11 +438,11 @@ if __name__ == "__main__":
     if MAC_ADDRESS == "XX:XX:XX:XX:XX:XX":
         print("Please update the MAC_ADDRESS variable in the script with your ring's actual MAC address")
         sys.exit(1)
-    
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        print("\nMonitoring stopped by user")
-    except Exception as e:
-        logger.error(f"Fatal error: {e}")
-        sys.exit(1)
+    while(True):
+        try:
+            asyncio.run(main())
+        except KeyboardInterrupt:
+            print("\nMonitoring stopped by user")
+        except Exception as e:
+            logger.error(f"Fatal error: {e}")
+            sys.exit(1)
