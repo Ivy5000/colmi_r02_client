@@ -277,6 +277,8 @@ class Client:
         Start firehose data collection along with real-time heart rate monitoring.
         Collects data from both sources simultaneously.
         """
+        heart_rate_reading_count = 0  # Track heart rate readings to discard the first one
+        
         try:
             # Start both firehose and real-time heart rate monitoring
             await self.send_packet(firehose.START_FIREHOSE_PACKET)
@@ -310,7 +312,11 @@ class Client:
                         elif task == heart_rate_task:
                             heart_rate_data = task.result()
                             if isinstance(heart_rate_data, real_time.Reading):
-                                print(f"Heart rate: {heart_rate_data.value} BPM")
+                                heart_rate_reading_count += 1
+                                if heart_rate_reading_count > 1:  # Discard the first reading
+                                    print(f"Heart rate: {heart_rate_data.value} BPM")
+                                else:
+                                    print(f"Heart rate: {heart_rate_data.value} BPM (first reading - discarded)")
                             elif isinstance(heart_rate_data, real_time.ReadingError):
                                 print(f"Heart rate error: {heart_rate_data.code}")
                     
