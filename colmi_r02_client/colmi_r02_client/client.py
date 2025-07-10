@@ -273,80 +273,18 @@ class Client:
         return FullData(self.address, heart_rates=heart_rate_logs, sport_details=sport_detail_logs)
 
     async def get_firehose(self):
-        """
-        Start firehose data collection along with real-time heart rate monitoring.
-        Collects data from both sources simultaneously.
-        """
-        heart_rate_reading_count = 0  # Track heart rate readings to discard the first one
-        
         try:
-            # Start both firehose and real-time heart rate monitoring
             await self.send_packet(firehose.START_FIREHOSE_PACKET)
-            await self.send_packet(real_time.get_start_packet(real_time.RealTimeReading.HEART_RATE))
-            
             tries = 0
-            while tries < 200:
+            while tries < 20:
                 tries += 1
-                
-                # Send continue packet periodically to keep heart rate data flowing
-                if tries % 10 == 0:  # Every 10 tries (about every 20 seconds with 2s timeout)
-                    await self.send_packet(real_time.get_continue_packet(real_time.RealTimeReading.HEART_RATE))
-                
-                # Create tasks to wait for both types of data
-                firehose_task = asyncio.create_task(
-                    self.queues[firehose.CMD_FIREHOSE].get()
-                )
-                heart_rate_task = asyncio.create_task(
-                    self.queues[real_time.CMD_START_REAL_TIME].get()
-                )
-                
                 try:
-                    # Wait for either firehose or heart rate data (or both)
-                    done, pending = await asyncio.wait(
-                        [firehose_task, heart_rate_task],
+                    data = await asyncio.wait_for(
+                        self.queues[firehose.CMD_FIREHOSE].get(),
                         timeout=2,
-                        return_when=asyncio.FIRST_COMPLETED
                     )
-                    
-                    if not done:
-                        continue
-                    
-                    # Process completed tasks
-                    for task in done:
-                        if task == firehose_task:
-                            firehose_data = task.result()
-                            print(f"Firehose data: {firehose_data}")
-                        elif task == heart_rate_task:
-                            heart_rate_data = task.result()
-                            if isinstance(heart_rate_data, real_time.Reading):
-                                heart_rate_reading_count += 1
-                                if heart_rate_reading_count > 1:  # Discard the first reading
-                                    print(f"Heart rate: {heart_rate_data.value} BPM")
-                            elif isinstance(heart_rate_data, real_time.ReadingError):
-                                print(f"Heart rate error: {heart_rate_data.code}")
-                    
-                    # Cancel any pending tasks
-                    for task in pending:
-                        task.cancel()
-                        try:
-                            await task
-                        except asyncio.CancelledError:
-                            pass
-                            
+                    logger.error(data)
                 except TimeoutError:
-                    # Cancel both tasks on timeout
-                    firehose_task.cancel()
-                    heart_rate_task.cancel()
-                    try:
-                        await firehose_task
-                    except asyncio.CancelledError:
-                        pass
-                    try:
-                        await heart_rate_task
-                    except asyncio.CancelledError:
-                        pass
-                        
+                    pass
         finally:
-            # Stop both firehose and real-time heart rate monitoring
             await self.send_packet(firehose.STOP_FIREHOSE_PACKET)
-            await self.send_packet(real_time.get_stop_packet(real_time.RealTimeReading.HEART_RATE))
