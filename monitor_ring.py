@@ -302,7 +302,13 @@ class RingMonitor:
     async def _log_battery_status(self):
         """Log battery status."""
         try:
-            battery_info = await self.client.get_battery()
+            try:
+                battery_info = await self.client.get_battery()
+            except Exception as battery_error:
+                logger.error(f"Failed to get battery status - ring may be disconnected: {battery_error}")
+                logger.info("Exiting due to ring disconnection")
+                self.stop()
+                sys.exit(1)
             logger.info(f"Battery: {battery_info.battery_level}% (charging: {battery_info.charging})")
             
             # Log to Home Assistant if enabled (log every 10 cycles to avoid spam)
@@ -368,7 +374,7 @@ class RingMonitor:
                         collected_data.append(parsed_data)
                         
                         if isinstance(parsed_data, SpO2):
-                            logger.info(f"SpO2 data: current={parsed_data.current/2.55}%, max={parsed_data.max/2.55}%, min={parsed_data.min/2.55}%, diff={parsed_data.diff}")
+                            logger.info(f"SpO2 data: current={parsed_data.current}%, max={parsed_data.max}%, min={parsed_data.min}%, diff={parsed_data.diff}")
                             if self.ha_client:
                                 await self.ha_client.log_spo2(parsed_data)
                                 
@@ -378,7 +384,7 @@ class RingMonitor:
                                 await self.ha_client.log_ppg(parsed_data)
                                 
                         elif isinstance(parsed_data, Accelerometer):
-                            magnitude = ((parsed_data.x**2 + parsed_data.y**2 + parsed_data.z**2)**0.5)/1000
+                            magnitude = ((parsed_data.x**2 + parsed_data.y**2 + parsed_data.z**2)**0.5)
                             logger.info(f"Accelerometer data: x={parsed_data.x}, y={parsed_data.y}, z={parsed_data.z}, magnitude={magnitude:.2f}")
                             if self.ha_client:
                                 await self.ha_client.log_accelerometer(parsed_data)

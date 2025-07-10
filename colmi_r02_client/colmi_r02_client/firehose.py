@@ -52,10 +52,10 @@ def parse_firehose(packet: bytearray) -> SpO2 | PPG | Accelerometer | None:
     kind = packet[1]
     if kind == Kind.SPO2:
         return SpO2(
-            current=(packet[2] << 8) | packet[3],
-            max=packet[5],
-            min=packet[7],
-            diff=packet[9],
+            current=int(((packet[2] << 8) | packet[3])/2),
+            max=int(packet[5]/2),
+            min=int(packet[7]/2),
+            diff=int(packet[9]/2),
         )
     elif kind == Kind.PPG:
         return PPG(
@@ -68,7 +68,7 @@ def parse_firehose(packet: bytearray) -> SpO2 | PPG | Accelerometer | None:
         x = ((packet[6] << 4) | (packet[7] & 0xF)) - (1 << 11) if packet[6] & 0x8 else ((packet[6] << 4) | (packet[7] & 0xF))
         y = ((packet[3] << 4) | (packet[3] & 0xF)) - (1 << 11) if packet[2] & 0x8 else ((packet[2] << 4) | (packet[3] & 0xF))
         z = ((packet[4] << 4) | (packet[5] & 0xF)) - (1 << 11) if packet[4] & 0x8 else ((packet[4] << 4) | (packet[5] & 0xF))
-        return Accelerometer(x=x, y=y, z=z)
+        return Accelerometer(x=x/10000, y=y/10000, z=z/10000)
     else:
         logging.error(f"Unexpected kind of firehose packet {packet}")
         return None
