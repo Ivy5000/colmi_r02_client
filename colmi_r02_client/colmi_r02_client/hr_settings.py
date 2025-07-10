@@ -9,7 +9,10 @@ I don't know what byte 1 in the response is.
 from dataclasses import dataclass
 import logging
 
-from colmi_r02_client.packet import make_packet
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path("C:/Users/willi/Desktop/ring/colmi_r02_client/colmi_r02_client/colmi_r02_client")))
+from packet import make_packet
 
 CMD_HEART_RATE_LOG_SETTINGS = 22  # 0x16
 

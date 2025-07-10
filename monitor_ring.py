@@ -15,10 +15,10 @@ import sys
 from pathlib import Path
 
 # Add the colmi_r02_client directory to Python path
-sys.path.insert(0, str(Path(__file__).parent / "colmi_r02_client" / "colmi_r02_client"))
+sys.path.insert(0, str(Path("C:/Users/willi/Desktop/ring/colmi_r02_client/colmi_r02_client/colmi_r02_client")))
 
 from client import Client
-import real_time
+import real_time as real_time
 
 # Configure logging
 logging.basicConfig(
@@ -215,7 +215,8 @@ async def main():
 
 if __name__ == "__main__":
     # Check if MAC address needs to be updated
-    if "XX:XX:XX:XX:XX:XX" in open(__file__).read():
+    MAC_ADDRESS = "1A:8E:08:AC:1E:97"  # TODO: Replace with actual MAC address
+    if MAC_ADDRESS == "XX:XX:XX:XX:XX:XX":
         print("Please update the MAC_ADDRESS variable in the script with your ring's actual MAC address")
         sys.exit(1)
     

@@ -10,7 +10,10 @@ can correct
 from dataclasses import dataclass
 from enum import IntEnum
 
-from colmi_r02_client.packet import make_packet
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path("C:/Users/willi/Desktop/ring/colmi_r02_client/colmi_r02_client/colmi_r02_client")))
+from packet import make_packet
 
 
 class Action(IntEnum):

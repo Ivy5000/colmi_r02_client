@@ -1,8 +1,10 @@
 from enum import IntEnum
 from dataclasses import dataclass
 import logging
-
-from colmi_r02_client.packet import make_packet
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path("C:/Users/willi/Desktop/ring/colmi_r02_client/colmi_r02_client/colmi_r02_client")))
+from packet import make_packet
 
 logger = logging.getLogger(__name__)
 

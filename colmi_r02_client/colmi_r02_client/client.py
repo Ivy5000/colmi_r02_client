@@ -9,20 +9,22 @@ from typing import Any
 
 from bleak import BleakClient
 from bleak.backends.characteristic import BleakGATTCharacteristic
+import sys
+sys.path.insert(0, str(Path("C:/Users/willi/Desktop/ring/colmi_r02_client/colmi_r02_client/colmi_r02_client")))
 
-from colmi_r02_client import (
-    battery,
-    date_utils,
-    steps,
-    set_time,
-    blink_twice,
-    hr,
-    hr_settings,
-    packet,
-    reboot,
-    real_time,
-    firehose,
-)
+
+
+import battery
+import date_utils
+import steps
+import set_time
+import blink_twice
+import hr
+import hr_settings
+import packet
+import reboot
+import real_time
+import firehose
 
 UART_SERVICE_UUID = "6E40FFF0-B5A3-F393-E0A9-E50E24DCCA9E"
 UART_RX_CHAR_UUID = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"

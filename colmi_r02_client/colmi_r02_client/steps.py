@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
-from colmi_r02_client.packet import make_packet
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path("C:/Users/willi/Desktop/ring/colmi_r02_client/colmi_r02_client/colmi_r02_client")))
+from packet import make_packet
 
 CMD_GET_STEP_SOMEDAY = 67  # 0x43
 
