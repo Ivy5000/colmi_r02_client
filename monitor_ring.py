@@ -459,7 +459,7 @@ async def main():
     # Create monitor instance
     monitor = RingMonitor(
         mac_address=MAC_ADDRESS,
-        monitor_interval=30,  # 30 seconds between cycles
+        monitor_interval=10,  # 30 seconds between cycles
         record_to=record_file
     )
     

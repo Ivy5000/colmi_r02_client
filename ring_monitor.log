@@ -8588,3 +8588,64 @@ TypeError: unsupported operand type(s) for |: 'int' and 'float'
 2025-07-10 06:05:06,649 - __main__ - INFO - --- Starting monitoring cycle #3 ---
 2025-07-10 06:05:06,649 - __main__ - INFO - Measuring real-time heart rate...
 2025-07-10 06:05:06,889 - client - INFO - Received packet bytearray(b'i\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00j')
+2025-07-10 06:05:32,326 - client - INFO - Received packet bytearray(b'i\x01\x00N\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb8')
+2025-07-10 06:05:32,765 - client - INFO - Received packet bytearray(b'i\x01\x00N\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb8')
+2025-07-10 06:05:33,390 - client - INFO - Received packet bytearray(b'i\x01\x00N\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb8')
+2025-07-10 06:05:33,765 - client - INFO - Received packet bytearray(b'i\x01\x00N\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb8')
+2025-07-10 06:05:34,265 - client - INFO - Received packet bytearray(b'i\x01\x00N\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb8')
+2025-07-10 06:05:34,764 - client - INFO - Received packet bytearray(b'i\x01\x00N\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb8')
+2025-07-10 06:05:34,767 - __main__ - INFO - Real-time HR readings: [78, 78, 78, 78, 78, 78] (avg: 78.0 bpm)
+2025-07-10 06:05:34,775 - __main__ - INFO - Getting firehose data...
+2025-07-10 06:05:34,776 - __main__ - INFO - Accelerometer data: x=-0.1653, y=-0.1861, z=0.012, magnitude=0.25
+2025-07-10 06:05:34,782 - __main__ - INFO - SpO2 data: current=45%, max=88%, min=44%, diff=64
+2025-07-10 06:05:34,786 - __main__ - INFO - PPG data: current=10701, max=10695, min=10460, diff=235
+2025-07-10 06:05:34,790 - __main__ - INFO - Accelerometer data: x=-0.1653, y=-0.1878, z=-0.1911, magnitude=0.31
+2025-07-10 06:05:34,793 - __main__ - INFO - SpO2 data: current=45%, max=88%, min=44%, diff=64
+2025-07-10 06:05:34,800 - __main__ - INFO - PPG data: current=10701, max=10695, min=10460, diff=235
+2025-07-10 06:05:34,808 - __main__ - INFO - Accelerometer data: x=-0.1653, y=-0.1793, z=-0.1907, magnitude=0.31
+2025-07-10 06:05:34,813 - __main__ - INFO - SpO2 data: current=45%, max=88%, min=44%, diff=64
+2025-07-10 06:05:34,819 - __main__ - INFO - PPG data: current=10701, max=10695, min=10460, diff=235
+2025-07-10 06:05:34,826 - __main__ - INFO - Accelerometer data: x=-0.1658, y=-0.1997, z=-0.1895, magnitude=0.32
+2025-07-10 06:05:34,831 - __main__ - INFO - Collected 10 firehose data points
+2025-07-10 06:05:35,014 - client - INFO - Received packet bytearray(b'j\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00k')
+2025-07-10 06:05:35,015 - client - INFO - Received packet bytearray(b'\xa1\x01\x00[\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\x88')
+2025-07-10 06:05:35,016 - client - INFO - Received packet bytearray(b'\xa1\x02)\xcd)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00y')
+2025-07-10 06:05:35,016 - client - INFO - Received packet bytearray(b'\xa1\x03\xe7\x06\xfa\x00\x07\x05\x00\x00\x00\x00\x00\x00\x00\x97')
+2025-07-10 06:05:35,017 - client - INFO - Received packet bytearray(b'\x03^\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00a')
+2025-07-10 06:05:35,017 - __main__ - INFO - Battery: 94% (charging: False)
+2025-07-10 06:06:05,024 - __main__ - INFO - --- Starting monitoring cycle #4 ---
+2025-07-10 06:06:05,024 - __main__ - INFO - Measuring real-time heart rate...
+2025-07-10 06:06:05,765 - client - INFO - Received packet bytearray(b'i\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00j')
+2025-07-10 06:06:45,897 - __main__ - ERROR - Failed to measure real-time heart rate: Not connected
+2025-07-10 06:06:45,897 - __main__ - INFO - Getting firehose data...
+2025-07-10 06:06:45,897 - __main__ - ERROR - Failed to get firehose data: Not connected
+2025-07-10 06:06:45,898 - __main__ - ERROR - Failed to get battery status - ring may be disconnected: Not connected
+2025-07-10 06:06:45,898 - __main__ - INFO - Exiting due to ring disconnection
+2025-07-10 06:06:45,898 - __main__ - INFO - Stopping monitor...
+2025-07-10 06:06:45,898 - client - INFO - Disconnecting
+2025-07-10 06:06:45,898 - client - ERROR - had an error
+2025-07-10 06:06:46,006 - __main__ - INFO - Ring monitor stopped
+2025-07-10 06:12:09,146 - __main__ - INFO - Home Assistant integration enabled
+2025-07-10 06:12:09,146 - __main__ - INFO - Starting ring monitor for device: 1A:8E:08:AC:1E:97
+2025-07-10 06:12:09,152 - __main__ - INFO - Home Assistant connection test successful
+2025-07-10 06:12:09,152 - __main__ - INFO - Home Assistant connection successful
+2025-07-10 06:12:09,177 - client - INFO - Connecting to 1A:8E:08:AC:1E:97
+2025-07-10 06:12:19,202 - __main__ - ERROR - Error in monitoring loop: Device with address 1A:8E:08:AC:1E:97 was not found.
+2025-07-10 06:12:19,202 - __main__ - INFO - Ring monitor stopped
+2025-07-10 06:12:19,203 - __main__ - ERROR - Fatal error: Device with address 1A:8E:08:AC:1E:97 was not found.
+2025-07-10 08:24:02,777 - __main__ - INFO - Home Assistant integration enabled
+2025-07-10 08:24:02,778 - __main__ - INFO - Starting ring monitor for device: 1A:8E:08:AC:1E:97
+2025-07-10 08:24:02,792 - __main__ - INFO - Home Assistant connection test successful
+2025-07-10 08:24:02,792 - __main__ - INFO - Home Assistant connection successful
+2025-07-10 08:24:02,839 - client - INFO - Connecting to 1A:8E:08:AC:1E:97
+2025-07-10 08:24:12,874 - __main__ - ERROR - Error in monitoring loop: Device with address 1A:8E:08:AC:1E:97 was not found.
+2025-07-10 08:24:12,875 - __main__ - INFO - Ring monitor stopped
+2025-07-10 08:24:12,876 - __main__ - ERROR - Fatal error: Device with address 1A:8E:08:AC:1E:97 was not found.
+2025-07-10 08:43:25,748 - __main__ - INFO - Home Assistant integration enabled
+2025-07-10 08:43:25,748 - __main__ - INFO - Starting ring monitor for device: 1A:8E:08:AC:1E:97
+2025-07-10 08:43:25,757 - __main__ - INFO - Home Assistant connection test successful
+2025-07-10 08:43:25,757 - __main__ - INFO - Home Assistant connection successful
+2025-07-10 08:43:25,800 - client - INFO - Connecting to 1A:8E:08:AC:1E:97
+2025-07-10 08:43:35,833 - __main__ - ERROR - Error in monitoring loop: Device with address 1A:8E:08:AC:1E:97 was not found.
+2025-07-10 08:43:35,834 - __main__ - INFO - Ring monitor stopped
+2025-07-10 08:43:35,835 - __main__ - ERROR - Fatal error: Device with address 1A:8E:08:AC:1E:97 was not found.
