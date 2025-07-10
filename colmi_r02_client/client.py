@@ -285,7 +285,7 @@ class Client:
             await self.send_packet(real_time.get_start_packet(real_time.RealTimeReading.HEART_RATE))
             
             tries = 0
-            while tries < 20:
+            while tries < 200:
                 tries += 1
                 
                 # Create tasks to wait for both types of data
