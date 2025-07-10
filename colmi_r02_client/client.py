@@ -273,18 +273,69 @@ class Client:
         return FullData(self.address, heart_rates=heart_rate_logs, sport_details=sport_detail_logs)
 
     async def get_firehose(self):
+        """
+        Start firehose data collection along with real-time heart rate monitoring.
+        Collects data from both sources simultaneously.
+        """
         try:
+            # Start both firehose and real-time heart rate monitoring
             await self.send_packet(firehose.START_FIREHOSE_PACKET)
+            await self.send_packet(real_time.get_start_packet(real_time.RealTimeReading.HEART_RATE))
+            
             tries = 0
             while tries < 20:
                 tries += 1
+                
+                # Create tasks to wait for both types of data
+                firehose_task = asyncio.create_task(
+                    self.queues[firehose.CMD_FIREHOSE].get()
+                )
+                heart_rate_task = asyncio.create_task(
+                    self.queues[real_time.CMD_START_REAL_TIME].get()
+                )
+                
                 try:
-                    data = await asyncio.wait_for(
-                        self.queues[firehose.CMD_FIREHOSE].get(),
+                    # Wait for either firehose or heart rate data (or both)
+                    done, pending = await asyncio.wait(
+                        [firehose_task, heart_rate_task],
                         timeout=2,
+                        return_when=asyncio.FIRST_COMPLETED
                     )
-                    logger.error(data)
+                    
+                    # Process completed tasks
+                    for task in done:
+                        if task == firehose_task:
+                            firehose_data = task.result()
+                            logger.info(f"Firehose data: {firehose_data}")
+                        elif task == heart_rate_task:
+                            heart_rate_data = task.result()
+                            if isinstance(heart_rate_data, real_time.Reading):
+                                logger.info(f"Heart rate: {heart_rate_data.value} BPM")
+                            elif isinstance(heart_rate_data, real_time.ReadingError):
+                                logger.warning(f"Heart rate error: {heart_rate_data.code}")
+                    
+                    # Cancel any pending tasks
+                    for task in pending:
+                        task.cancel()
+                        try:
+                            await task
+                        except asyncio.CancelledError:
+                            pass
+                            
                 except TimeoutError:
-                    pass
+                    # Cancel both tasks on timeout
+                    firehose_task.cancel()
+                    heart_rate_task.cancel()
+                    try:
+                        await firehose_task
+                    except asyncio.CancelledError:
+                        pass
+                    try:
+                        await heart_rate_task
+                    except asyncio.CancelledError:
+                        pass
+                        
         finally:
+            # Stop both firehose and real-time heart rate monitoring
             await self.send_packet(firehose.STOP_FIREHOSE_PACKET)
+            await self.send_packet(real_time.get_stop_packet(real_time.RealTimeReading.HEART_RATE))
