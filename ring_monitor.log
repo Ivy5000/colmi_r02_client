@@ -8649,3 +8649,11 @@ TypeError: unsupported operand type(s) for |: 'int' and 'float'
 2025-07-10 08:43:35,833 - __main__ - ERROR - Error in monitoring loop: Device with address 1A:8E:08:AC:1E:97 was not found.
 2025-07-10 08:43:35,834 - __main__ - INFO - Ring monitor stopped
 2025-07-10 08:43:35,835 - __main__ - ERROR - Fatal error: Device with address 1A:8E:08:AC:1E:97 was not found.
+2025-07-10 08:43:48,811 - __main__ - INFO - Home Assistant integration enabled
+2025-07-10 08:43:48,811 - __main__ - INFO - Starting ring monitor for device: 1A:8E:08:AC:1E:97
+2025-07-10 08:43:48,823 - __main__ - INFO - Home Assistant connection test successful
+2025-07-10 08:43:48,823 - __main__ - INFO - Home Assistant connection successful
+2025-07-10 08:43:48,874 - client - INFO - Connecting to 1A:8E:08:AC:1E:97
+2025-07-10 08:43:58,911 - __main__ - ERROR - Error in monitoring loop: Device with address 1A:8E:08:AC:1E:97 was not found.
+2025-07-10 08:43:58,911 - __main__ - INFO - Ring monitor stopped
+2025-07-10 08:43:58,912 - __main__ - ERROR - Fatal error: Device with address 1A:8E:08:AC:1E:97 was not found.
