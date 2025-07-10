@@ -306,13 +306,13 @@ class Client:
                     for task in done:
                         if task == firehose_task:
                             firehose_data = task.result()
-                            logger.info(f"Firehose data: {firehose_data}")
+                            print(f"Firehose data: {firehose_data}")
                         elif task == heart_rate_task:
                             heart_rate_data = task.result()
                             if isinstance(heart_rate_data, real_time.Reading):
-                                logger.info(f"Heart rate: {heart_rate_data.value} BPM")
+                                print(f"Heart rate: {heart_rate_data.value} BPM")
                             elif isinstance(heart_rate_data, real_time.ReadingError):
-                                logger.warning(f"Heart rate error: {heart_rate_data.code}")
+                                print(f"Heart rate error: {heart_rate_data.code}")
                     
                     # Cancel any pending tasks
                     for task in pending:
