@@ -3,3 +3,81 @@
 2025-07-09 22:17:40,155 - __main__ - ERROR - Error in monitoring loop: Device with address 1A:8E:08:AC:1E:97 was not found.
 2025-07-09 22:17:40,156 - __main__ - INFO - Ring monitor stopped
 2025-07-09 22:17:40,157 - __main__ - ERROR - Fatal error: Device with address 1A:8E:08:AC:1E:97 was not found.
+2025-07-09 22:18:05,784 - __main__ - INFO - Starting ring monitor for device: 1A:8E:08:AC:1E:97
+2025-07-09 22:18:05,818 - client - INFO - Connecting to 1A:8E:08:AC:1E:97
+2025-07-09 22:18:10,401 - client - INFO - Connected!
+2025-07-09 22:18:10,640 - __main__ - INFO - Device info: {'hw_version': 'R02_V3.0', 'fw_version': 'R02_3.00.06_240523'}
+2025-07-09 22:18:10,760 - client - INFO - Received packet bytearray(b'\x03b\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00e')
+2025-07-09 22:18:10,761 - __main__ - ERROR - Failed to get battery status: 'BatteryInfo' object has no attribute 'level'
+2025-07-09 22:18:10,880 - client - INFO - Received packet bytearray(b'\x16\x01\x02\x1e\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x007')
+2025-07-09 22:18:10,881 - __main__ - INFO - HR logging settings: enabled=False, interval=30min
+2025-07-09 22:18:10,882 - __main__ - INFO - Starting monitoring loop (interval: 30s)
+2025-07-09 22:18:10,882 - __main__ - INFO - --- Starting monitoring cycle ---
+2025-07-09 22:18:10,883 - __main__ - INFO - Measuring real-time heart rate...
+2025-07-09 22:18:11,000 - client - INFO - Received packet bytearray(b'i\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00j')
+2025-07-09 22:18:36,328 - client - INFO - Received packet bytearray(b'i\x01\x00M\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb7')
+2025-07-09 22:18:37,015 - client - INFO - Received packet bytearray(b'i\x01\x00M\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb7')
+2025-07-09 22:18:37,265 - client - INFO - Received packet bytearray(b'i\x01\x00M\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb7')
+2025-07-09 22:18:37,889 - client - INFO - Received packet bytearray(b'i\x01\x00M\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb7')
+2025-07-09 22:18:38,265 - client - INFO - Received packet bytearray(b'i\x01\x00M\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb7')
+2025-07-09 22:18:38,765 - client - INFO - Received packet bytearray(b'i\x01\x00M\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb7')
+2025-07-09 22:18:38,768 - __main__ - INFO - Real-time HR readings: [77, 77, 77, 77, 77, 77] (avg: 77.0 bpm)
+2025-07-09 22:18:38,768 - __main__ - INFO - Getting firehose data...
+2025-07-09 22:18:39,016 - client - INFO - Received packet bytearray(b'j\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00k')
+2025-07-09 22:18:39,264 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x00\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00-')
+2025-07-09 22:18:39,265 - client - INFO - Received packet bytearray(b'\xa1\x02\x00\x00)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00\x83')
+2025-07-09 22:18:39,266 - client - INFO - Received packet bytearray(b'\xa1\x03\x17\r\x01\x0c\x0f\x04\x00\x00\x00\x00\x00\x00\x00\xe8')
+2025-07-09 22:18:39,266 - client - ERROR - SpO2(current=0, max=177, min=89, diff=128)
+2025-07-09 22:18:39,267 - client - ERROR - PPG(current=0, max=10695, min=10460, diff=235)
+2025-07-09 22:18:39,267 - client - ERROR - Accelerometer(x=-1804, y=381, z=28)
+2025-07-09 22:18:39,390 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x9c\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\xc9')
+2025-07-09 22:18:39,391 - client - INFO - Received packet bytearray(b'\xa1\x02(\xc9)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00t')
+2025-07-09 22:18:39,392 - client - INFO - Received packet bytearray(b'\xa1\x03\x19\n\x01\x08\x0e\t\x00\x00\x00\x00\x00\x00\x00\xe7')
+2025-07-09 22:18:39,392 - client - ERROR - SpO2(current=156, max=177, min=89, diff=128)
+2025-07-09 22:18:39,392 - client - ERROR - PPG(current=10441, max=10695, min=10460, diff=235)
+2025-07-09 22:18:39,392 - client - ERROR - Accelerometer(x=-1815, y=-1878, z=24)
+2025-07-09 22:18:39,640 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x9c\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\xc9')
+2025-07-09 22:18:39,641 - client - INFO - Received packet bytearray(b'\xa1\x02(\xd0)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00{')
+2025-07-09 22:18:39,642 - client - INFO - Received packet bytearray(b'\xa1\x03\x1a\x0b\x00\x02\x0c\x0f\x00\x00\x00\x00\x00\x00\x00\xe6')
+2025-07-09 22:18:39,642 - client - ERROR - SpO2(current=156, max=177, min=89, diff=128)
+2025-07-09 22:18:39,642 - client - ERROR - PPG(current=10448, max=10695, min=10460, diff=235)
+2025-07-09 22:18:39,643 - client - ERROR - Accelerometer(x=-1841, y=-1861, z=2)
+2025-07-09 22:18:39,890 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x9c\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\xc9')
+2025-07-09 22:18:39,891 - client - INFO - Received packet bytearray(b'\xa1\x02(\xc7)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00r')
+2025-07-09 22:18:39,892 - client - INFO - Received packet bytearray(b'\xa1\x03\x1a\x01\x00\x0f\x0e\x07\x00\x00\x00\x00\x00\x00\x00\xe3')
+2025-07-09 22:18:39,892 - client - ERROR - SpO2(current=156, max=177, min=89, diff=128)
+2025-07-09 22:18:39,893 - client - ERROR - PPG(current=10439, max=10695, min=10460, diff=235)
+2025-07-09 22:18:39,893 - client - ERROR - Accelerometer(x=-1817, y=-2031, z=15)
+2025-07-09 22:18:40,265 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x9c\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\xc9')
+2025-07-09 22:18:40,266 - client - ERROR - SpO2(current=156, max=177, min=89, diff=128)
+2025-07-09 22:18:40,515 - client - INFO - Received packet bytearray(b'\xa1\x02(\xca)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00u')
+2025-07-09 22:18:40,516 - client - INFO - Received packet bytearray(b'\xa1\x03\x19\n\x00\r\x0e\x0f\x00\x00\x00\x00\x00\x00\x00\xf1')
+2025-07-09 22:18:40,516 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x9c\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\xc9')
+2025-07-09 22:18:40,517 - client - ERROR - PPG(current=10442, max=10695, min=10460, diff=235)
+2025-07-09 22:18:40,517 - client - ERROR - Accelerometer(x=-1809, y=-1878, z=13)
+2025-07-09 22:18:40,517 - client - ERROR - SpO2(current=156, max=177, min=89, diff=128)
+2025-07-09 22:18:40,640 - client - INFO - Received packet bytearray(b'\xa1\x02(\xcc)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00w')
+2025-07-09 22:18:40,641 - client - INFO - Received packet bytearray(b'\xa1\x03\x17\x0b\x01\x05\x0e\x00\x00\x00\x00\x00\x00\x00\x00\xda')
+2025-07-09 22:18:40,642 - client - ERROR - PPG(current=10444, max=10695, min=10460, diff=235)
+2025-07-09 22:18:40,643 - client - ERROR - Accelerometer(x=-1824, y=379, z=21)
+2025-07-09 22:18:40,765 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x9c\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\xc9')
+2025-07-09 22:18:40,766 - client - ERROR - SpO2(current=156, max=177, min=89, diff=128)
+2025-07-09 22:18:40,890 - client - INFO - Received packet bytearray(b'\xa1\x02(\xd2)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00}')
+2025-07-09 22:18:40,891 - client - INFO - Received packet bytearray(b'\xa1\x03\x1a\x07\x00\x0f\x0e\x0e\x00\x00\x00\x00\x00\x00\x00\xf0')
+2025-07-09 22:18:40,892 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x9c\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\xc9')
+2025-07-09 22:18:40,892 - client - INFO - Received packet bytearray(b'\xa1\x02(\xd0)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00{')
+2025-07-09 22:18:40,893 - client - INFO - Received packet bytearray(b'\xa1\x03\x18\x0e\x01\x05\x0f\x06\x00\x00\x00\x00\x00\x00\x00\xe5')
+2025-07-09 22:18:40,893 - client - ERROR - PPG(current=10450, max=10695, min=10460, diff=235)
+2025-07-09 22:18:41,140 - client - INFO - Received packet bytearray(b'\xa1\x01\x00\x9c\x00\xb1\x00Y\x00\x80\x01\x00\x00\x00\x00\xc9')
+2025-07-09 22:18:41,142 - client - INFO - Received packet bytearray(b'\xa1\x02(\xce)\xc7(\xdc\x00\xeb\x01\x00\x00\x00\x00y')
+2025-07-09 22:18:41,142 - client - INFO - Received packet bytearray(b'\xa1\x03\x18\t\x01\x07\x0f\n\x00\x00\x00\x00\x00\x00\x00\xe6')
+2025-07-09 22:18:41,389 - client - INFO - Received packet bytearray(b'\x03b\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00e')
+2025-07-09 22:18:41,391 - __main__ - ERROR - Failed to get battery status: 'BatteryInfo' object has no attribute 'level'
+2025-07-09 22:18:41,391 - __main__ - INFO - Getting heart rate log for today...
+2025-07-09 22:18:41,765 - client - INFO - Received packet bytearray(b'\x15\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x14')
+2025-07-09 22:18:41,766 - hr - INFO - error response from heart rate log request
+2025-07-09 22:18:41,767 - __main__ - INFO - No heart rate log data for today
+2025-07-09 22:18:41,768 - __main__ - INFO - Getting steps data for today...
+2025-07-09 22:18:42,015 - client - INFO - Received packet bytearray(b'C\xf0\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x005')
+2025-07-09 22:18:42,016 - client - INFO - Received packet bytearray(b'C\x99\x10\x06X\x00\x01?\x03\xab\x00r\x00\x00\x00\xaa')
+2025-07-09 22:18:42,017 - __main__ - INFO - Steps: 1 activities, total steps: 171
