@@ -115,6 +115,7 @@ class Client:
         """Bleak callback that handles new packets from the ring."""
 
         logger.info(f"Received packet {packet}")
+        print(f"DEBUG: Received packet type {packet[0]} - {packet}")  # Debug output
 
         assert len(packet) == 16, f"Packet is the wrong length {packet}"
         packet_type = packet[0]
@@ -123,6 +124,7 @@ class Client:
         if packet_type in COMMAND_HANDLERS:
             result = COMMAND_HANDLERS[packet_type](packet)
             if result is not None:
+                print(f"DEBUG: Adding result to queue {packet_type}: {result}")  # Debug output
                 self.queues[packet_type].put_nowait(result)
             else:
                 logger.debug(f"No result returned from parser for {packet_type}")
@@ -281,12 +283,19 @@ class Client:
         
         try:
             # Start both firehose and real-time heart rate monitoring
+            print("Starting firehose...")
             await self.send_packet(firehose.START_FIREHOSE_PACKET)
+            print("Starting heart rate monitoring...")
             await self.send_packet(real_time.get_start_packet(real_time.RealTimeReading.HEART_RATE))
             
             tries = 0
             while tries < 200:
                 tries += 1
+                
+                # Send continue packet periodically to keep heart rate data flowing
+                if tries % 10 == 0:  # Every 10 tries (about every 20 seconds with 2s timeout)
+                    print("Sending continue heart rate packet...")
+                    await self.send_packet(real_time.get_continue_packet(real_time.RealTimeReading.HEART_RATE))
                 
                 # Create tasks to wait for both types of data
                 firehose_task = asyncio.create_task(
@@ -304,6 +313,10 @@ class Client:
                         return_when=asyncio.FIRST_COMPLETED
                     )
                     
+                    if not done:
+                        print(f"Timeout on try {tries}, no data received")
+                        continue
+                    
                     # Process completed tasks
                     for task in done:
                         if task == firehose_task:
@@ -311,6 +324,7 @@ class Client:
                             print(f"Firehose data: {firehose_data}")
                         elif task == heart_rate_task:
                             heart_rate_data = task.result()
+                            print(f"Received heart rate data: {heart_rate_data}")
                             if isinstance(heart_rate_data, real_time.Reading):
                                 heart_rate_reading_count += 1
                                 if heart_rate_reading_count > 1:  # Discard the first reading
