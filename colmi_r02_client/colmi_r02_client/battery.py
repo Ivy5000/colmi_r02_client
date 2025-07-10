@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 
 
-CMD_BATTERY = 3
+CMD_BATTERY = 0x03
 
 BATTERY_PACKET = make_packet(CMD_BATTERY)
 

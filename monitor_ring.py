@@ -94,11 +94,6 @@ class RingMonitor:
             # Get battery status periodically
             await self._log_battery_status()
             
-            # Get today's heart rate log
-            await self._get_heart_rate_log()
-            
-            # Get today's steps
-            await self._get_steps_data()
             
         except Exception as e:
             logger.error(f"Error in monitoring cycle: {e}")
@@ -115,7 +110,7 @@ class RingMonitor:
         """Log battery status."""
         try:
             battery_info = await self.client.get_battery()
-            logger.info(f"Battery: {battery_info.level}% (charging: {battery_info.charging})")
+            logger.info(f"Battery: {battery_info.battery_level}% (charging: {battery_info.charging})")
         except Exception as e:
             logger.error(f"Failed to get battery status: {e}")
     
