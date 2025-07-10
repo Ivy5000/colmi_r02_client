@@ -445,4 +445,6 @@ if __name__ == "__main__":
             print("\nMonitoring stopped by user")
         except Exception as e:
             logger.error(f"Fatal error: {e}")
-            sys.exit(1)
+            monitor.stop()
+            time.sleep(10)
+            monitor.start_monitoring()
